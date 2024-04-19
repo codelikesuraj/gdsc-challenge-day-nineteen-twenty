@@ -1,4 +1,4 @@
-module github.com/codelikesuraj/gdsc-challenge-day-nine-ten
+module github.com/codelikesuraj/gdsc-challenge-day-nineteen-twenty
 
 go 1.22.0
 

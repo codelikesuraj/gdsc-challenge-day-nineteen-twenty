@@ -3,9 +3,9 @@ package main
 import (
 	"log"
 
-	"github.com/codelikesuraj/gdsc-challenge-day-nine-ten/controllers"
-	"github.com/codelikesuraj/gdsc-challenge-day-nine-ten/middlewares"
-	"github.com/codelikesuraj/gdsc-challenge-day-nine-ten/models"
+	"github.com/codelikesuraj/gdsc-challenge-day-nineteen-twenty/controllers"
+	"github.com/codelikesuraj/gdsc-challenge-day-nineteen-twenty/middlewares"
+	"github.com/codelikesuraj/gdsc-challenge-day-nineteen-twenty/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

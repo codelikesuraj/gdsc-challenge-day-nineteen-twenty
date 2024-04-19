@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/codelikesuraj/gdsc-challenge-day-nine-ten/models"
+	"github.com/codelikesuraj/gdsc-challenge-day-nineteen-twenty/models"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/golang-jwt/jwt/v4"

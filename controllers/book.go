@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/codelikesuraj/gdsc-challenge-day-nine-ten/models"
+	"github.com/codelikesuraj/gdsc-challenge-day-nineteen-twenty/models"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
