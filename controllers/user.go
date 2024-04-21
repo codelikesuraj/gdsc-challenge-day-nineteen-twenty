@@ -21,7 +21,6 @@ type UserController struct {
 func (uc *UserController) Register(c *gin.Context) {
 	var count int64
 	var user models.User
-	
 
 	if err := c.ShouldBind(&user); err != nil {
 		var ve validator.ValidationErrors
@@ -33,6 +32,7 @@ func (uc *UserController) Register(c *gin.Context) {
 			return
 		}
 
+		log.Println(err)
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"message": "bad request",
 			"errors":  nil,
