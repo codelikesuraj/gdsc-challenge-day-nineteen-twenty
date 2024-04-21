@@ -12,28 +12,34 @@ import (
 )
 
 var (
-	DB *gorm.DB
-
 	PORT = "3000"
 )
 
 func main() {
+	log.Fatalln(SetupRouter(SetupDB()).Run(":" + PORT))
+}
+
+func SetupDB() *gorm.DB {
 	// initialize database
-	var err error
-	if DB, err = gorm.Open(sqlite.Open("bookstoreapi.db"), &gorm.Config{}); err != nil {
+	db, err := gorm.Open(sqlite.Open("bookstoreapi.db"), &gorm.Config{})
+	if err != nil {
 		log.Fatalln("Error connecting to database:", err.Error())
 	}
 
 	// run migrations
-	if err := DB.AutoMigrate(&models.User{}, &models.Book{}); err != nil {
+	if err := db.AutoMigrate(&models.User{}, &models.Book{}); err != nil {
 		log.Fatalln("Error running migrations:", err.Error())
 	}
 
+	return db
+}
+
+func SetupRouter(db *gorm.DB) *gin.Engine {
 	r := gin.Default()
 
-	BookController := controllers.BookController{DB: DB}
-	UserController := controllers.UserController{DB: DB}
-	AuthMiddleware := middlewares.Authenticated{DB: DB}
+	BookController := controllers.BookController{DB: db}
+	UserController := controllers.UserController{DB: db}
+	AuthMiddleware := middlewares.Authenticated{DB: db}
 
 	r.POST("/register", UserController.Register)
 	r.POST("/login", UserController.Login)
@@ -44,5 +50,17 @@ func main() {
 		GET("/books/:id", BookController.GetABook).
 		POST("/books", BookController.CreateBook)
 
-	log.Fatalln(r.Run(":" + PORT))
+	return r
+}
+
+func RefreshDatabase(db *gorm.DB) {
+	err := db.Migrator().DropTable(&models.Book{}, &models.User{})
+	if err != nil {
+		log.Fatalln("Error clearing migrations:", err.Error())
+	}
+
+	// run migrations
+	if err := db.AutoMigrate(&models.User{}, &models.Book{}); err != nil {
+		log.Fatalln("Error running migrations:", err.Error())
+	}
 }
